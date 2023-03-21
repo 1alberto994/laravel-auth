@@ -4,12 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="card-title">Aggiungi Fumetto</h1>
+                <h1 class="card-title">Aggiungi post</h1>
             </div>
         </div>
         <div class="row">
             <div class="col mb-3">
-                <form action="{{ route('admin.store') }}" method="POST">
+                <form action="{{ route('admin.posts.store') }}" method="POST">
                     @csrf
 
                     <div class="mb-3">

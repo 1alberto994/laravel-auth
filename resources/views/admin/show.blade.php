@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <h1>{{ $post->title }}</h1>
-                <a href="{{ route('admin.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">
                     Torna indietro
                 </a>
             </div>
