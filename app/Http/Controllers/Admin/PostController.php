@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts=Post::all();
-        return view('admin.posts.index',compact('posts'));
+        return view('admin.index',compact('posts'));
     }
 
     /**
@@ -79,7 +79,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        // $post=Post::findOrFail($id);
+        $post=Post::findOrFail($post);
         $data=$request->all();
         $post->update($data);
         return redirect()->route('admin.show',$post->id);

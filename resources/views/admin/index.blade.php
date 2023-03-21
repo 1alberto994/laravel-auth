@@ -18,13 +18,13 @@
                         <div class="card-body">
                             <h2 class="card-title">{{ $post->title }}</h2>
 
-                            <a href="{{ route('admin.show', $post->id) }}" class="btn btn-primary">
+                            <a href="{{ route('admin.show', $post) }}" class="btn btn-primary">
                                 Vedi dettagli
                             </a>
-                            <a href="{{ route('admin.edit', $post->id) }}" class="btn btn-warning">
+                            <a href="{{ route('admin.edit', $post) }}" class="btn btn-warning">
                                 Aggiorna
                             </a>
-                            <form action="{{route('admin.destroy',$post->id" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?')">
+                            <form action="{{route('admin.destroy',$post" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"class="btn btn-dander">
