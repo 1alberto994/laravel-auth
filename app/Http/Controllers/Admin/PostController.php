@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -37,7 +38,14 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $data=$request->validate();
+        $slug=Str::slug($data['title']);
+        $newPost=Post::create([
+            'title'=>$data['title'],
+            'description'=>$data['description'],
+            'slug'=>$slug
+        ]);
+        return redirect()->route('admin.show',$newPost);
     }
 
     /**
@@ -48,7 +56,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.show',compact('post'));
     }
 
     /**
@@ -59,7 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.edit',compact('post'));
     }
 
     /**
@@ -71,7 +79,10 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        // $post=Post::findOrFail($id);
+        $data=$request->all();
+        $post->update($data);
+        return redirect()->route('admin.show',$post->id);
     }
 
     /**
@@ -82,6 +93,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.index');
     }
 }
