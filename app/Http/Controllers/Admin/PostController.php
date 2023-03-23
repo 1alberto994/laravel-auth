@@ -52,7 +52,7 @@ class PostController extends Controller
         $newPost = Post::create($data);
 
         
-        return redirect()->route('admin.show', $newPost->id);
+        return redirect()->route('admin.posts.show', $newPost->id);
     }
 
     /**
@@ -111,7 +111,7 @@ class PostController extends Controller
 
         $post->update($data);
 
-        return redirect()->route('admin.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -129,6 +129,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.posts.index');
     }
 }
