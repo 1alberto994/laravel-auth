@@ -27,7 +27,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'title'=>['required',Rule::unique('posts')->ignore($this->post),'max:128'],
             'description'=>'required|max:4096',
-            'img' => 'nullable|image|max:2048',
+            'img' => 'nullable|image|max:4096',
             'delete_img' => 'nullable'
         ];
     }
