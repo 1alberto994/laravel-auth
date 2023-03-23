@@ -19,5 +19,10 @@
                 </div>
             </div>
         </div>
+                @if ($post->img)
+                    <div>
+                        <img src="{{ asset('storage/'.$post->img) }}" style="height: 300px;" alt="">
+                    </div>
+                @endif
     </div>
 @endsection

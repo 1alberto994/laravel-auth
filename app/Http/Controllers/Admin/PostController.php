@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -38,14 +40,19 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $data=$request->validate();
-        $slug=Str::slug($data['title']);
-        $newPost=Post::create([
-            'title'=>$data['title'],
-            'description'=>$data['description'],
-            'slug'=>$slug
-        ]);
-        return redirect()->route('admin.show',$newPost);
+        $data = $request->validated();
+
+        if (array_key_exists('img', $data)) {
+            $imgPath = Storage::put('posts', $data['img']);
+            $data['img'] = $imgPath;
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+
+        $newPost = Post::create($data);
+
+        $user = Auth::user();
+        return redirect()->route('admin.show', $newPost->id);
     }
 
     /**
@@ -79,10 +86,32 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post=Post::findOrFail($post);
-        $data=$request->all();
+        $data = $request->validated();
+
+        if (array_key_exists('delete_img', $data)) {
+            if ($post->img) {
+                // Cancella il vecchio file
+                Storage::delete($post->img);
+
+                $post->img = null;
+                $post->save();
+            }
+        }
+        else if (array_key_exists('img', $data)) {
+            $imgPath = Storage::put('posts', $data['img']);
+            $data['img'] = $imgPath;
+
+            if ($post->img) {
+                // Cancella il vecchio file
+                Storage::delete($post->img);
+            }
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+
         $post->update($data);
-        return redirect()->route('admin.show',$post->id);
+
+        return redirect()->route('admin.show', $post->id);
     }
 
     /**
@@ -93,7 +122,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->img) {
+            // Cancella il vecchio file
+            Storage::delete($post->img);
+        }
+
         $post->delete();
+
         return redirect()->route('admin.index');
     }
 }

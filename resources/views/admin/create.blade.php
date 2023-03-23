@@ -23,6 +23,18 @@
                         <label for="description" class="form-label">Descrizione</label>
                         <textarea class="form-control" name="description" id="description" rows="3" placeholder="Inserisci una descrizione"></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="img" class="form-label">
+                            Immagine in evidenza
+                        </label>
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="img"
+                            name="img"
+                            accept="image/*"
+                            placeholder="Inserisci l'immagine in evidenza...">
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-success">
                             Salva
