@@ -24,7 +24,7 @@
                             <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-warning">
                                 Aggiorna
                             </a>
-                            <form action="{{route('admin.posts.destroy',$post" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?')">
+                            <form action="{{route('admin.posts.destroy',$post" method="POST" enctype="multipart/form-data" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"class="btn btn-dander">

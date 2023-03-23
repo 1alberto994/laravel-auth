@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col mb-3">
-                <form action="{{ route('admin.posts.update',$post->id) }}" method="POST">
+                <form action="{{ route('admin.posts.update',$post->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

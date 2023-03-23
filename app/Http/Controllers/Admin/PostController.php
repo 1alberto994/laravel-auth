@@ -7,7 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -51,7 +51,7 @@ class PostController extends Controller
 
         $newPost = Post::create($data);
 
-        $user = Auth::user();
+        
         return redirect()->route('admin.show', $newPost->id);
     }
 
