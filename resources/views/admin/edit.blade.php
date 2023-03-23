@@ -33,7 +33,7 @@
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" name="delete_img" id="delete_img">
                                 <label class="form-check-label" for="delete_img">
-                                    Cancella immagine in evidenza
+                                    Cancella immagine in evidenza!
                                 </label>
                             </div>
 
